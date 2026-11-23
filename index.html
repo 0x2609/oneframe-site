@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="icon.png">
+<meta name="description" content="OneFrame — capture, mark up and record your screen on Mac. One shortcut, one frame.">
+<title>OneFrame</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: dark-first product page — hero with live "selection" mock, feature list, keys strip, pricing, FAQ */
+:root{
+  --bg:#08080A; --surface:#121216; --line:#24242B; --fg:#F4F4F6; --muted:#9A9AA6;
+  --brand:#FF2D9B; --dim:rgba(0,0,0,.55);
+  --display:"Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F6F6F8; --surface:#FFFFFF; --line:#E3E3E8; --fg:#111114; --muted:#5E5E69; --dim:rgba(0,0,0,.35); color-scheme:light}}
+:root[data-theme="light"]{--bg:#F6F6F8; --surface:#FFFFFF; --line:#E3E3E8; --fg:#111114; --muted:#5E5E69; --dim:rgba(0,0,0,.35); color-scheme:light}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{display:flex;align-items:center;justify-content:space-between;padding-block:22px}
+.logo{display:flex;align-items:center;gap:10px;font:800 19px/1 var(--display);text-decoration:none}
+.logo svg{width:30px;height:30px}
+.navlinks{display:flex;gap:22px;font-size:15px;color:var(--muted)}
+.navlinks a{text-decoration:none}.navlinks a:hover{color:var(--fg)}
+@media (max-width:640px){.navlinks{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;padding-block:40px 80px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:40px}}
+.hero h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.035em;font-weight:800}
+.hero p{color:var(--muted);font-size:19px;max-width:30em;margin:22px 0 30px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font:700 16px/1 var(--body);text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.meta{font:400 13px/1.4 var(--mono);color:var(--muted);margin-top:16px}
+
+/* mock: a screen with a dotted selection, crosshair and our round toolbar */
+.mock{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:
+   linear-gradient(135deg,#2a3350 0%,#1b1e2b 45%,#3a2238 100%)}
+.mock .win{position:absolute;inset:12% 10% 18% 8%;border-radius:12px;background:#f3f3f5;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.mock .win::before{content:"";position:absolute;left:14px;top:12px;width:44px;height:10px;background:
+  radial-gradient(circle at 5px 5px,#ff5f57 5px,transparent 6px),radial-gradient(circle at 21px 5px,#febc2e 5px,transparent 6px),radial-gradient(circle at 37px 5px,#28c840 5px,transparent 6px)}
+.mock .lines{position:absolute;left:8%;right:8%;top:22%;display:grid;gap:10px}
+.mock .lines i{display:block;height:10px;border-radius:6px;background:#dcdce2}
+.mock .lines i:nth-child(2){width:80%}.mock .lines i:nth-child(3){width:64%}.mock .lines i:nth-child(5){width:72%}
+.mock .shade{position:absolute;inset:0;background:var(--dim);
+  -webkit-mask:linear-gradient(#000 0 0) ,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  -webkit-mask-position:0 0,30% 34%;-webkit-mask-size:100% 100%,42% 38%;-webkit-mask-repeat:no-repeat}
+.mock .sel{position:absolute;left:30%;top:34%;width:42%;height:38%;
+  background-image:radial-gradient(circle,#fff 2.6px,transparent 3px);background-size:14px 14px;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:5px}
+.mock .cross{position:absolute;left:72%;top:72%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.mock .cross::before,.mock .cross::after{content:"";position:absolute;background:#fff;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.mock .cross::before{left:50%;top:0;bottom:0;width:4px;transform:translateX(-50%)}
+.mock .cross::after{top:50%;left:0;right:0;height:4px;transform:translateY(-50%)}
+.mock .size{position:absolute;left:calc(72% + 18px);top:calc(72% + 20px);font:600 11px/1 var(--mono);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);font-variant-numeric:tabular-nums}
+.mock .bar{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(18,18,22,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08)}
+.mock .bar span{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.10);display:grid;place-items:center}
+.mock .bar span.on{background:#fff}
+.mock .bar span.rec{background:#ff3b30}
+.mock .bar span svg{width:16px;height:16px}
+@media (prefers-reduced-motion:no-preference){
+  .mock .cross{animation:drift 6s ease-in-out infinite}
+  @keyframes drift{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(calc(-50% + 6px),calc(-50% + 4px))}}
+}
+
+/* sections */
+section{padding-block:72px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;max-width:38em;margin-bottom:44px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);letter-spacing:-.025em;line-height:1.08;font-weight:800}
+.sec-head p{color:var(--muted);margin:0}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+@media (max-width:900px){.features{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.features{grid-template-columns:1fr}}
+.f{background:var(--surface);padding:28px;display:grid;gap:10px;align-content:start;min-width:0}
+.f .ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.f .ic svg{width:20px;height:20px;stroke:var(--fg);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.f h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.f p{margin:0;color:var(--muted);font-size:15.5px}
+
+/* keys */
+.keys{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media (max-width:900px){.keys{grid-template-columns:repeat(2,1fr)}}
+.k{border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px;background:var(--surface)}
+.k kbd{font:600 15px/1 var(--mono);display:flex;gap:6px}
+.k kbd b{min-width:30px;height:30px;padding:0 8px;border-radius:8px;border:1px solid var(--line);border-bottom-width:3px;display:grid;place-items:center;font-weight:600}
+.k span{color:var(--muted);font-size:15px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:860px}
+@media (max-width:700px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);border-radius:20px;padding:30px;background:var(--surface);display:grid;gap:16px;align-content:start}
+.plan.pro{border-color:var(--fg)}
+.plan h3{font-size:22px}
+.price{font:800 44px/1 var(--display);letter-spacing:-.03em}
+.price small{font:500 15px/1 var(--body);color:var(--muted);letter-spacing:0;margin-left:6px}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15.5px}
+.plan li{display:flex;gap:10px}
+.plan li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--fg);margin-top:.65em}
+.note{color:var(--muted);font-size:14px;margin-top:16px}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding-block:18px;max-width:820px}
+summary{cursor:pointer;font:700 18px/1.4 var(--display);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:400;color:var(--muted)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin:12px 0 0}
+
+footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="100 100 824 824">
+    <rect x="100" y="100" width="824" height="824" rx="185" fill="#000"/>
+    <g transform="translate(34 34)">
+      <rect x="221.5" y="221.5" width="384" height="384" fill="#FF2D9B" fill-opacity=".18"/>
+      <g fill="#FF2D9B">
+        <circle cx="221.5" cy="221.5" r="32"/><circle cx="349.5" cy="221.5" r="32"/><circle cx="477.5" cy="221.5" r="32"/><circle cx="605.5" cy="221.5" r="32"/>
+        <circle cx="221.5" cy="349.5" r="32"/><circle cx="605.5" cy="349.5" r="32"/><circle cx="221.5" cy="477.5" r="32"/>
+        <circle cx="221.5" cy="605.5" r="32"/><circle cx="349.5" cy="605.5" r="32"/>
+      </g>
+      <g stroke="#fff" stroke-width="58" stroke-linecap="round"><path d="M605.5 477.5 V733.5"/><path d="M477.5 605.5 H733.5"/></g>
+    </g>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#top" aria-label="OneFrame home"><svg><use href="#mark"/></svg><span>One<span style="color:var(--brand)">Frame</span></span></a>
+    <div class="navlinks"><a href="#features">Features</a><a href="#keys">Shortcuts</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <div class="eyebrow">Screenshots · Recording · macOS</div>
+      <h1 style="margin-top:18px">Capture, mark up and record your screen in one frame.</h1>
+      <p>Press ⇧⌘5, drag a frame, pick what you need. Screenshot, scrolling capture, text recognition or a screen recording with notes on top — from the same window.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#pricing">Get the beta</a>
+        <a class="btn" href="#features">See features</a>
+      </div>
+      <div class="meta">macOS 13 Ventura or later · Apple silicon &amp; Intel · Public launch early 2027</div>
+    </div>
+    <div class="mock" role="img" aria-label="OneFrame selecting part of a window, with the capture toolbar below">
+      <div class="win"><div class="lines"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="shade"></div>
+      <div class="sel"></div>
+      <div class="cross"></div>
+      <div class="size">1280 × 720</div>
+      <div class="bar" aria-hidden="true">
+        <span><svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="5" width="18" height="12" rx="2"/><rect x="9" y="18" width="6" height="2" rx="1"/></svg></span>
+        <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M8 16l4 4 4-4"/></svg></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h8"/></svg></span>
+        <span class="rec"><svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg></span>
+      </div>
+    </div>
+  </header>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">What it does</div>
+      <h2>Everything you do with your screen, in one place.</h2>
+      <p>OneFrame replaces the screenshot shortcut, a markup app, an OCR tool and a screen recorder.</p>
+    </div>
+    <div class="features">
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></div><h3>All‑in‑One</h3><p>One shortcut opens a frame you can drag, resize to exact pixels and snap to window edges. Then choose screenshot, scroll, text or video.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/></svg></div><h3>Fast markup</h3><p>Arrows, shapes, text, counters, highlighter, blur and pixelate. Add a gradient or image background and export.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="10" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg></div><h3>Screen recording</h3><p>MP4 with system audio, microphone and camera bubble. Draw on screen, highlight clicks and show the keys you press.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v16M8 16l4 4 4-4M6 4h12"/></svg></div><h3>Scrolling capture</h3><p>Scroll down or up and OneFrame stitches the page into one long image.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h8"/></svg></div><h3>Text recognition</h3><p>Select any area and get the text on your clipboard. Works offline, in many languages.</p></div>
+      <div class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v7M8 10h8l-1 5H9l-1-5zM12 15v6"/></svg></div><h3>Pin &amp; share</h3><p>Pin a shot above other windows at 1:1, drag it into any app, or upload and copy a link that expires on its own.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="keys">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Shortcuts</div>
+      <h2>Your fingers already know them.</h2>
+      <p>Defaults follow macOS habits. Change any of them in Settings.</p>
+    </div>
+    <div class="keys">
+      <div class="k"><kbd><b>⇧</b><b>⌘</b><b>2</b></kbd><span>Window</span></div>
+      <div class="k"><kbd><b>⇧</b><b>⌘</b><b>3</b></kbd><span>Full screen</span></div>
+      <div class="k"><kbd><b>⇧</b><b>⌘</b><b>4</b></kbd><span>Area</span></div>
+      <div class="k"><kbd><b>⇧</b><b>⌘</b><b>5</b></kbd><span>All‑in‑One</span></div>
+      <div class="k"><kbd><b>⇧</b><b>⌘</b><b>6</b></kbd><span>Record screen</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Free to start. One payment for Pro.</h2>
+      <p>No subscription. Try every Pro feature for 7 days.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <ul><li>Area, window and full‑screen shots</li><li>All‑in‑One frame with snapping</li><li>Basic markup and backgrounds</li><li>Copy, save, drag and drop</li></ul>
+      </div>
+      <div class="plan pro">
+        <h3>Pro</h3>
+        <div class="price">$12<small>one‑time</small></div>
+        <ul><li>Screen recording with camera and audio</li><li>On‑screen drawing, clicks and keystrokes</li><li>Scrolling capture and text recognition</li><li>Pinned shots and share links</li><li>All future 1.x updates</li></ul>
+      </div>
+    </div>
+    <p class="note">Beta is free while we test. Final price is set at launch.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">FAQ</div><h2>Questions</h2></div>
+    <details><summary>Which Macs does it run on?</summary><p>macOS 13 Ventura or later, on Apple silicon and Intel Macs.</p></details>
+    <details><summary>Does it replace the built‑in ⇧⌘3 / ⇧⌘4?</summary><p>Yes. OneFrame takes over the same shortcuts and shows you how to turn the system ones off in one step.</p></details>
+    <details><summary>Where do my screenshots go?</summary><p>To a folder you choose (Pictures/OneFrame by default) and to the clipboard. Nothing leaves your Mac unless you press Upload.</p></details>
+    <details><summary>How long do share links live?</summary><p>You choose 1 day, 3 days or 1 week. After that the file is deleted automatically.</p></details>
+    <details><summary>Is there a subscription?</summary><p>No. Pro is a single purchase.</p></details>
+  </div>
+</section>
+
+<div class="wrap"><footer><span>© 2026 One<span style="color:var(--brand)">Frame</span></span><span>Made for macOS</span></footer></div>
+</body>
+</html>
