@@ -6,6 +6,24 @@
     <description>OneFrame updates</description>
     <language>en</language>
     <item>
+      <title>Version 1.0.2</title>
+      <pubDate>Wed, 25 Nov 2026 16:02:51 GMT</pubDate>
+      <sparkle:version>104</sparkle:version>
+      <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<h3>What’s new</h3>
+<ul>
+<li>Light / Dark / System appearance (Settings → App → Appearance); thumbnails and pinned screenshots follow the theme</li>
+<li>Image and video editors: fixed full-width toolbars, the picture always fits between them, Reset Zoom, a full menu bar</li>
+<li>New Polyline tool (N); Pencil with ⇧ draws straight lines; ⇧-drag moves annotations straight; arrow keys nudge</li>
+<li>Smooth Blur, rounded shapes with a corner radius for Blur, Pixelate and Spotlight</li>
+<li>Cleaner color pickers and buttons; new Highlighter icon; new layered app icon on macOS 26</li>
+<li>Accessibility: VoiceOver labels, keyboard focus, better contrast, Interface Size (Settings → App)</li>
+<li>Fixes: camera bubble no longer records as a black box; Delete moves to Trash with ⌘Z to undo</li>
+</ul>]]></description>
+      <enclosure url="https://github.com/0x2609/oneframe-site/releases/download/v1.0.2-104/OneFrame-1.0.2-104.zip" sparkle:edSignature="+lPKYX5CQFwKl7ZDFENrjyY4QAc5SiIySAa7xU1Hvd5hs8OHhN3IVtGWW6V+qDtvg6fGAqBWn1dns1sDKO3WBg==" length="5420034" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>Version 1.0.1</title>
       <pubDate>Wed, 25 Nov 2026 10:40:48 GMT</pubDate>
       <sparkle:version>103</sparkle:version>
