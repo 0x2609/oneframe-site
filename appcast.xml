@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>OneFrame</title>
+    <link>https://0x2609.github.io/oneframe-site/appcast.xml</link>
+    <description>OneFrame updates</description>
+    <language>en</language>
+    <item>
+      <title>Version 1.0.1</title>
+      <pubDate>Wed, 25 Nov 2026 10:40:48 GMT</pubDate>
+      <sparkle:version>103</sparkle:version>
+      <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<h3>What’s new</h3>
+<ul>
+<li>Automatic updates: OneFrame checks for new versions once a day and installs them in a click</li>
+<li>Check for Updates… in the menu bar menu and in Settings → App → About</li>
+<li>Settings → App → Updates: turn automatic checks on or off, or let OneFrame download and install updates by itself</li>
+</ul>]]></description>
+      <enclosure url="https://github.com/0x2609/oneframe-site/releases/download/v1.0.1-103/OneFrame-1.0.1-103.zip" sparkle:edSignature="JK/nt35sjpt2yeZaty0UHwmLIsxztShqwbgMmd63J3Bd6+Vk+vqXiwUd3jh94R4mhJk1FWiBSlqnkO+Jr/tMDw==" length="3913621" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
